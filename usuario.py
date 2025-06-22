@@ -5,14 +5,19 @@ class Usuario:
         self.email = email
         self.senha = senha
 
-    def cadastrar(self):
-        pass
+    def cadastrar(self, banco):
+        banco.salvar('usuarios', self)
 
     def autenticar(self, senha):
-        pass
+        return self.senha == senha
 
     def atualizar(self, nome=None, email=None, senha=None):
-        pass
+        if nome:
+            self.nome = nome
+        if email:
+            self.email = email
+        if senha:
+            self.senha = senha
 
-    def excluir(self):
-        pass 
+    def excluir(self, banco):
+        banco.deletar('usuarios', self.id) 

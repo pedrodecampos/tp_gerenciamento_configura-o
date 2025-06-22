@@ -3,16 +3,29 @@ class ServicoTarefa:
         self.banco = banco
 
     def criar_tarefa(self, descricao, usuario_id, categoria_id):
-        pass
+        id = len(self.banco.tarefas) + 1
+        tarefa = Tarefa(id, descricao, usuario_id, categoria_id)
+        self.banco.salvar('tarefas', tarefa)
+        return tarefa
 
     def atualizar_tarefa(self, id, descricao=None):
-        pass
+        tarefa = self.banco.tarefas.get(id)
+        if tarefa:
+            tarefa.atualizar(descricao)
+            self.banco.salvar('tarefas', tarefa)
+            return tarefa
+        return None
 
     def excluir_tarefa(self, id):
-        pass
+        self.banco.deletar('tarefas', id)
 
     def marcar_tarefa_concluida(self, id):
-        pass
+        tarefa = self.banco.tarefas.get(id)
+        if tarefa:
+            tarefa.marcar_como_concluida()
+            self.banco.salvar('tarefas', tarefa)
+            return tarefa
+        return None
 
     def listar_tarefas_por_usuario(self, usuario_id):
-        pass 
+        return [tarefa for tarefa in self.banco.tarefas.values() if tarefa.usuario_id == usuario_id] 

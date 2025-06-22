@@ -3,14 +3,16 @@ class Categoria:
         self.id = id
         self.nome = nome
 
-    def criar(self):
-        pass
+    def criar(self, banco):
+        banco.salvar('categorias', self)
 
     def atualizar(self, nome):
-        pass
+        if nome:
+            self.nome = nome
 
-    def excluir(self):
-        pass
+    def excluir(self, banco):
+        banco.deletar('categorias', self.id)
 
-    def listar_tarefas(self):
-        pass 
+    @staticmethod
+    def listar_tarefas(banco, categoria_id):
+        return [tarefa for tarefa in banco.tarefas.values() if tarefa.categoria_id == categoria_id] 

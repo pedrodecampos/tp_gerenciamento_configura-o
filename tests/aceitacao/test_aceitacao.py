@@ -7,10 +7,10 @@ class TestAceitacao(unittest.TestCase):
     def test_usuario_cria_e_conclui_tarefa(self):
         banco = BancoDeDados()
         usuario = Usuario(1, 'Maria', 'maria@email.com', 'senha123')
-        banco.salvar('usuarios', usuario)
+        usuario.cadastrar(banco)
 
         tarefa = Tarefa(1, 'Fazer trabalho de matemática', usuario.id, 1)
-        banco.salvar('tarefas', tarefa)
+        tarefa.criar(banco)
 
         # Usuário marca a tarefa como concluída
         tarefa.marcar_como_concluida()

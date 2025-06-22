@@ -8,13 +8,11 @@ class TestImplementacao(unittest.TestCase):
     def test_fluxo_completo(self):
         banco = BancoDeDados()
         usuario = Usuario(1, 'João', 'joao@email.com', '123')
+        usuario.cadastrar(banco)
         categoria = Categoria(1, 'Estudos')
+        categoria.criar(banco)
         tarefa = Tarefa(1, 'Estudar Python', usuario.id, categoria.id)
-
-        # Simula salvar no banco
-        banco.salvar('usuarios', usuario)
-        banco.salvar('categorias', categoria)
-        banco.salvar('tarefas', tarefa)
+        tarefa.criar(banco)
 
         # Busca e verifica se foi salvo corretamente
         usuario_salvo = banco.buscar('usuarios', 1)
@@ -29,6 +27,14 @@ class TestImplementacao(unittest.TestCase):
         # Marca tarefa como concluída
         tarefa_salva.marcar_como_concluida()
         self.assertTrue(tarefa_salva.concluida)
+
+        # Atualiza usuário
+        usuario_salvo.atualizar(nome='João Silva')
+        self.assertEqual(usuario_salvo.nome, 'João Silva')
+
+        # Exclui tarefa
+        tarefa_salva.excluir(banco)
+        self.assertNotIn(1, banco.tarefas)
 
 if __name__ == "__main__":
     unittest.main() 

@@ -6,17 +6,19 @@ class Tarefa:
         self.categoria_id = categoria_id
         self.concluida = concluida
 
-    def criar(self):
-        pass
+    def criar(self, banco):
+        banco.salvar('tarefas', self)
 
     def atualizar(self, descricao=None):
-        pass
+        if descricao:
+            self.descricao = descricao
 
-    def excluir(self):
-        pass
+    def excluir(self, banco):
+        banco.deletar('tarefas', self.id)
 
     def marcar_como_concluida(self):
         self.concluida = True
 
-    def listar_por_usuario(self, usuario_id):
-        pass 
+    @staticmethod
+    def listar_por_usuario(banco, usuario_id):
+        return [tarefa for tarefa in banco.tarefas.values() if tarefa.usuario_id == usuario_id] 
