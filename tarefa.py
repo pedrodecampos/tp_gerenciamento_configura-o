@@ -16,7 +16,7 @@ class Tarefa:
         pass
 
     def marcar_como_concluida(self):
-        pass
+        self.concluida = True
 
     def listar_por_usuario(self, usuario_id):
         pass 
