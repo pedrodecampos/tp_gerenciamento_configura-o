@@ -1,3 +1,5 @@
+from usuario import Usuario
+
 class ServicoUsuario:
     def __init__(self, banco):
         self.banco = banco

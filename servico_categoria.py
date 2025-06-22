@@ -1,3 +1,5 @@
+from categoria import Categoria
+
 class ServicoCategoria:
     def __init__(self, banco):
         self.banco = banco
